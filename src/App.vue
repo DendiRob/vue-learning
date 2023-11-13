@@ -1,10 +1,5 @@
 <template>
-    <div>
-        <my-button
-        @click="fetchPosts"
-        style="display: block;
-        margin-bottom: 10px;"
-        >Fetch posts</my-button>
+    <div v-if="!isPostsLoading">
         <my-button
         @click="showDialog"
         >
@@ -20,6 +15,7 @@
             @remove='deletePost'
         />
     </div>
+    <h1 v-else>Loading...</h1>
 </template>
 <script>
 import PostList from '@/components/PostList.vue';
@@ -35,6 +31,7 @@ export default {
         return {
             posts:  [],
             dialogVisible: false,
+            isPostsLoading: false
         }
     },
     methods: {
@@ -51,13 +48,19 @@ export default {
         },
         async fetchPosts() {
             try {
+                this.isPostsLoading = true
                 const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
                 this.posts = response.data;
+                
             } catch (error) {
                 alert(error)   
+            }finally{
+                this.isPostsLoading = false
             }
-            
-        }
+        },
+    },
+    mounted() {
+        this.fetchPosts()
     },
 }
 </script>
