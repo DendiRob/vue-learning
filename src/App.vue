@@ -1,10 +1,15 @@
 <template>
     <div v-if="!isPostsLoading">
-        <my-button
-        @click="showDialog"
-        >
-        <h1>Create a post</h1>
-        </my-button>
+        <div class="app__btns">
+            <my-button
+            @click="showDialog"
+            >
+            <h1>Create a post</h1>
+            </my-button>
+            <my-select 
+            v-model="selectedSort" 
+            />
+        </div>
         <my-dialog v-model:show="dialogVisible">
             <post-form 
             @create="createPost"
@@ -31,7 +36,8 @@ export default {
         return {
             posts:  [],
             dialogVisible: false,
-            isPostsLoading: false
+            isPostsLoading: false,
+            selectedSort: ''
         }
     },
     methods: {
@@ -72,5 +78,9 @@ export default {
     }
     #app {
         padding: 20px;
+    }
+    .app__btns {
+        display: flex;
+        justify-content: space-between;
     }
 </style>
