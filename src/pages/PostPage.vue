@@ -36,7 +36,7 @@
         }"
         >{{ pageNumber }}</div>
     </div>
-    <div ref="observer" class="observer">При пересечений происходит вызов функций</div>
+    <div v-intersection="loadMorePosts" class="observer">При пересечений происходит вызов функций</div>
 </template>
 <script>
 import PostList from '@/components/PostList.vue';
@@ -119,17 +119,6 @@ export default {
     },
     mounted() {
         this.fetchPosts();
-        let options = {
-        rootMargin: "0px",
-        threshold: 1.0,
-        };
-
-        let observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting && this.page < this.totalPage){
-                this.loadMorePosts()
-            }
-        }, options);
-        observer.observe(this.$refs.observer)
     },
     computed:  {
         sortedPost() {
@@ -139,11 +128,6 @@ export default {
             return this.sortedPost.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
         }
     },
-    watch: {
-        // page() {
-
-        // }
-    }
 }
 </script>
 <style>

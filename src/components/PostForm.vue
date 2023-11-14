@@ -5,6 +5,7 @@
         v-model="post.title" 
         @input="post.title = $event.target.value"
         placeholder="name"
+        v-focus
         />
         <my-input 
         v-model="post.body" 
