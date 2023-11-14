@@ -3,7 +3,7 @@ import App from './App'
 import components from './components/UI';
 import router from './router/router';
 import directives from './directives/index';
-import store from './components/store';
+import store from './components/store/index';
 
 const app = createApp(App)
 
