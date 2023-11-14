@@ -7,5 +7,5 @@ export default [
     MyButton,
     MyInput,
     MyDialog,
-    MySelect
+    MySelect,
 ]
