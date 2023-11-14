@@ -3,6 +3,7 @@ import Main from '../pages/Main';
 import PostPage from '../pages/PostPage';
 import AboutPage from '../pages/AboutPage';
 import PostIdPage from '../pages/PostIdPage';
+import PostPageWithStore from '../pages/PostPageWithStore';
 
 
 const routes = [
@@ -22,6 +23,11 @@ const routes = [
         path: '/about',
         component: AboutPage
     },
+    {
+        path: '/store',
+        component: PostPageWithStore
+    },
+
 
 ]
 

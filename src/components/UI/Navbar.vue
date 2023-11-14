@@ -10,6 +10,9 @@
             <my-button @click="$router.push('/')">
                 main
             </my-button>
+            <my-button @click="$router.push('/store')">
+                Store
+            </my-button>
         </div>
     </div>
 </template>
