@@ -1,4 +1,7 @@
 <template>
+    <my-input
+    v-model="searchQuery"
+    />
     <div v-if="!isPostsLoading">
         <div class="app__btns">
             <my-button
@@ -7,7 +10,8 @@
             <h1>Create a post</h1>
             </my-button>
             <my-select 
-            v-model="selectedSort" 
+            v-model="selectedSort"
+            :options="sortOptions"
             />
         </div>
         <my-dialog v-model:show="dialogVisible">
@@ -16,7 +20,7 @@
             />  
         </my-dialog>
         <post-list  
-            :posts="posts"  
+            :posts="sortedAndSearchPosts"  
             @remove='deletePost'
         />
     </div>
@@ -37,7 +41,14 @@ export default {
             posts:  [],
             dialogVisible: false,
             isPostsLoading: false,
-            selectedSort: ''
+            selectedSort: '',
+            searchQuery: '',
+            sortOptions: [
+                {value: 'title', name: 'by name'},
+                {value: 'body', name: 'by body'},
+                // {value: 'id', name: 'by id'}, доделать
+                
+            ]
         }
     },
     methods: {
@@ -68,6 +79,21 @@ export default {
     mounted() {
         this.fetchPosts()
     },
+    computed:  {
+        sortedPost() {
+            return [...this.posts].sort((post1,post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
+        },
+        sortedAndSearchPosts(){
+            return this.sortedPost.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+        }
+    },
+    // watch: {
+    //     selectedSort(newValue) {
+    //         this.posts.sort((post1, post2) => {
+    //             return post1[newValue]?.localeCompare(post2[newValue])
+    //         })
+    //     }
+    // }
 }
 </script>
 <style>
