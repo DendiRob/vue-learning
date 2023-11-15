@@ -1,5 +1,7 @@
 <template>
-    <my-input
+    <h1>{{ likes }}</h1>
+    <button @click="setLikes" class="add__likes">add</button>
+    <!-- <my-input
     :model-value="searchQuery"
     @update:model-value="setSearchQuery"
     />
@@ -38,12 +40,13 @@
         }"
         >{{ pageNumber }}</div>
     </div>
-    <div v-intersection="loadMorePosts" class="observer">При пересечений происходит вызов функций</div>
+    <div v-intersection="loadMorePosts" class="observer">При пересечений происходит вызов функций</div> -->
 </template>
 <script>
 import PostList from '@/components/PostList.vue';
 import PostForm from '@/components/PostForm.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { ref } from 'vue';
 
 export default {
     components: {
@@ -53,6 +56,18 @@ export default {
     data() {
         return {
             dialogVisible: false,
+        }
+    },
+    setup(props) {
+        const likes = ref(0);
+
+        const setLikes = () => {
+            likes.value += 1
+        }
+
+        return{
+            likes,
+            setLikes
         }
     },
     methods: {
@@ -76,10 +91,6 @@ export default {
         showDialog() {
             this.dialogVisible = true   
         },
-    },
-    mounted() {
-        this.fetchPosts();
-
     },
     computed:  {
         ...mapState({
